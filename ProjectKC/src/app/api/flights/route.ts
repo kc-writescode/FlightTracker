@@ -13,6 +13,8 @@ export async function GET(request: Request) {
         return NextResponse.json([]);
     }
 
+    const flightNumberClean = flightNumber.toUpperCase().trim();
+
     // database/ticket fallback data
     const ticketData: Record<string, Flight[]> = {
         'BA1849': [{
@@ -45,19 +47,12 @@ export async function GET(request: Request) {
 
     // 1. Try fetching real data from API
     try {
-        let apiUrl = `${BASE_URL}?access_key=${API_KEY}&flight_iata=${flightNumber}`;
-        // AviationStack uses 'flight_date' param (YYYY-MM-DD) if needed, usually just getting active flights is default
-        // But for specific historical/future date, verify endpoint support or filter.
-        // Actually, looking at docs/usage, getting specific date often requires a paid plan or proper endpoint filter?
-        // Let's trying adding &flight_date=YYYY-MM-DD if user provided it.
-        // NOTE: Free plan might not support historical data, but let's try.
-        if (date) {
-            // Ensure date is likely in correct format? Input=date gives YYYY-MM-DD
-            // apiUrl += `&flight_date=${date}`; // Caution: might break if plan doesn't support
-        }
+        let apiUrl = `${BASE_URL}?access_key=${API_KEY}&flight_iata=${flightNumberClean}`;
 
-        // Actually, user just wants to filter. Let's start with basic fetch.
-        // If we want to be safe, we fetch active/scheduled.
+        // Pass date to API if provided. AviationStack uses 'flight_date' (YYYY-MM-DD)
+        if (date) {
+            apiUrl += `&flight_date=${date}`;
+        }
 
         const response = await fetch(apiUrl);
         const data = await response.json();
@@ -65,7 +60,7 @@ export async function GET(request: Request) {
         if (data.data && Array.isArray(data.data) && data.data.length > 0) {
             let filteredData = data.data;
 
-            // Client-side filter if API doesn't support it well on free tier or to be safe
+            // Secondary safety check: ensure the returned data matches the requested date
             if (date) {
                 filteredData = filteredData.filter((f: any) => f.flight_date === date);
             }
@@ -86,7 +81,7 @@ export async function GET(request: Request) {
                         }
                     }
                     return {
-                        flightNumber: item.flight.iata || item.flight.number || flightNumber,
+                        flightNumber: item.flight.iata || item.flight.number || flightNumberClean,
                         airline: item.airline.name || 'Unknown Airline',
                         status: mapStatus(item.flight_status),
                         departure: {
@@ -121,8 +116,16 @@ export async function GET(request: Request) {
         return NextResponse.json(realFlightData);
     }
 
-    if (flightNumber.toUpperCase() in ticketData) {
-        return NextResponse.json(ticketData[flightNumber.toUpperCase()]);
+    // fallback to ticket data if flight number matches
+    if (flightNumberClean in ticketData) {
+        let flights = ticketData[flightNumberClean];
+
+        // If a date was provided, only return the mock if it matches the date
+        if (date) {
+            flights = flights.filter(f => f.departure.time.startsWith(date));
+        }
+
+        return NextResponse.json(flights);
     }
 
     return NextResponse.json([]);
