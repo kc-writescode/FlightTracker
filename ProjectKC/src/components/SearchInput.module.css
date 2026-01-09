@@ -93,3 +93,36 @@
 .input:focus+.searchIcon {
     color: #00f2ff;
 }
+
+@media (max-width: 600px) {
+    .inputWrapper {
+        flex-direction: column;
+        align-items: stretch;
+        border-radius: 16px;
+        padding-bottom: 3.5rem;
+        /* Space for search icon */
+    }
+
+    .input {
+        padding: 1rem 1.5rem;
+        font-size: 1.1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .dateInput {
+        padding: 1rem 1.5rem;
+        width: 100%;
+        min-width: 0;
+    }
+
+    .divider {
+        display: none;
+    }
+
+    .searchIcon {
+        right: 50%;
+        transform: translateX(50%);
+        bottom: 1rem;
+        top: auto;
+    }
+}

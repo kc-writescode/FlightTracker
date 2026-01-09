@@ -179,6 +179,14 @@
 }
 
 @media (max-width: 600px) {
+    .card {
+        padding: 1.5rem;
+    }
+
+    .flightNumber {
+        font-size: 1.2rem;
+    }
+
     .route {
         grid-template-columns: 1fr;
         gap: 1.5rem;
@@ -192,6 +200,14 @@
 
     .location {
         align-items: center;
+    }
+
+    .time {
+        font-size: 1.8rem;
+    }
+
+    .code {
+        font-size: 1.2rem;
     }
 
     .visualPath {

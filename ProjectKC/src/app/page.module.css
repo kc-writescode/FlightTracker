@@ -92,3 +92,24 @@
   -webkit-text-fill-color: transparent;
   font-weight: 600;
 }
+
+@media (max-width: 600px) {
+  .main {
+    padding: 2rem 1rem;
+  }
+
+  .title {
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+
+  .backgroundGlow {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+  }
+
+  .messageSection p:first-child {
+    font-size: 1.25rem;
+  }
+}
