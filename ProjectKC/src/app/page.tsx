@@ -5,6 +5,7 @@ import styles from './page.module.css';
 import SearchInput from '@/components/SearchInput';
 import FlightCard from '@/components/FlightCard';
 import JourneyMap from '@/components/JourneyMap';
+import Countdown from '@/components/Countdown';
 import MagnifierImage from '@/components/MagnifierImage';
 import { Flight } from '@/types/flight';
 
@@ -90,6 +91,8 @@ export default function Home() {
       <h1 className={styles.title}>
         <span>Welcome Home Akka ❤️ - KC</span>
       </h1>
+
+      <Countdown />
 
       <JourneyMap currentLeg={currentLeg} />
 
