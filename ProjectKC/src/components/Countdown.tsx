@@ -51,7 +51,9 @@ export default function Countdown() {
 
     return (
         <div className={styles.container}>
-            <div className={styles.title}>Landing in India (IST) In:</div>
+            <div className={styles.title}>Landing in India (IST)</div>
+            <div className={styles.targetTime}>Jan 12, 2026 • 05:20 AM</div>
+
             <div className={styles.timer}>
                 <div className={styles.segment}>
                     <span className={styles.value}>{timeLeft.days}</span>
