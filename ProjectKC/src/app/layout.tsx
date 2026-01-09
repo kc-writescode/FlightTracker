@@ -9,8 +9,8 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "SkyStream | Flight Lookup",
-  description: "Premium flight tracking experience.",
+  title: "Welcome Home Vardhu",
+  description: "Safe Journey",
 };
 
 export default function RootLayout({
