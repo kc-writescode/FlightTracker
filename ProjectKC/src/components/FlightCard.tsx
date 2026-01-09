@@ -61,13 +61,13 @@ export default function FlightCard({ flight }: FlightCardProps) {
                     <div className={styles.code}>{flight.departure.airportCode}</div>
                     <div className={styles.city}>{flight.departure.location}</div>
                     <div className={styles.time} suppressHydrationWarning>
-                        {formatTime(flight.departure.time, flight.departure.timezone)}
+                        {formatTime(flight.departure.time)}
                     </div>
                     {flight.departure.terminal && (
                         <div className={styles.terminal}>Term {flight.departure.terminal}{flight.departure.gate ? `, Gate ${flight.departure.gate}` : ''}</div>
                     )}
                     <div className={styles.date} suppressHydrationWarning>
-                        {formatDate(flight.departure.time, flight.departure.timezone)}
+                        {formatDate(flight.departure.time)}
                     </div>
                 </div>
 
@@ -82,13 +82,13 @@ export default function FlightCard({ flight }: FlightCardProps) {
                     <div className={styles.code}>{flight.arrival.airportCode}</div>
                     <div className={styles.city}>{flight.arrival.location}</div>
                     <div className={styles.time} suppressHydrationWarning>
-                        {formatTime(flight.arrival.time, flight.arrival.timezone)}
+                        {formatTime(flight.arrival.time)}
                     </div>
                     {flight.arrival.terminal && (
                         <div className={styles.terminal}>Term {flight.arrival.terminal}</div>
                     )}
                     <div className={styles.date} suppressHydrationWarning>
-                        {formatDate(flight.arrival.time, flight.arrival.timezone)}
+                        {formatDate(flight.arrival.time)}
                     </div>
                 </div>
             </div>
