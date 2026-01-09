@@ -1,0 +1,200 @@
+.card {
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 2rem;
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 1.5rem;
+    opacity: 0;
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5);
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 1.5rem;
+}
+
+.airlineInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.airline {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.flightNumber {
+    font-size: 1.5rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff, #aaa);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.route {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    align-items: center;
+}
+
+.location {
+    display: flex;
+    flex-direction: column;
+}
+
+.location.arrival {
+    align-items: flex-end;
+    text-align: right;
+}
+
+.code {
+    font-size: 1.5rem;
+    font-weight: 600;
+    line-height: 1;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.2));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 0.5rem;
+}
+
+.city {
+    font-size: 1rem;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.time {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-top: 0.25rem;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(0, 242, 255, 0.3);
+}
+
+.date {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-top: 0.25rem;
+}
+
+.terminal {
+    font-size: 1.1rem;
+    color: #00f2ff;
+    font-weight: 600;
+    margin-top: 0.5rem;
+    letter-spacing: 0.5px;
+    background: rgba(0, 242, 255, 0.1);
+    padding: 0.2rem 0.8rem;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+.path {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.duration {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 0.5rem;
+}
+
+.visualPath {
+    width: 100%;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+}
+
+.planeIcon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--background);
+    padding: 0 10px;
+    color: var(--primary);
+}
+
+.status {
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.status[data-status="On Time"] {
+    background: rgba(0, 255, 128, 0.1);
+    color: #00ff80;
+    border: 1px solid rgba(0, 255, 128, 0.2);
+}
+
+.status[data-status="Delayed"] {
+    background: rgba(255, 166, 0, 0.1);
+    color: #ffa600;
+    border: 1px solid rgba(255, 166, 0, 0.2);
+}
+
+.status[data-status="Cancelled"] {
+    background: rgba(255, 50, 50, 0.1);
+    color: #ff3232;
+    border: 1px solid rgba(255, 50, 50, 0.2);
+}
+
+.status[data-status="Arrived"] {
+    background: rgba(0, 242, 255, 0.1);
+    color: #00f2ff;
+    border: 1px solid rgba(0, 242, 255, 0.2);
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 600px) {
+    .route {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    .location.arrival {
+        align-items: center;
+        text-align: center;
+    }
+
+    .location {
+        align-items: center;
+    }
+
+    .visualPath {
+        display: none;
+    }
+}
