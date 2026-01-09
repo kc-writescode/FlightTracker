@@ -92,7 +92,6 @@ export default function Home() {
         <span>Welcome Home Akka ❤️ - KC</span>
       </h1>
 
-      <Countdown />
 
       <JourneyMap currentLeg={currentLeg} />
 
@@ -118,6 +117,8 @@ export default function Home() {
           </div>
         )}
       </div>
+
+      <Countdown />
 
       <div className={styles.conceptImage}>
         <MagnifierImage
