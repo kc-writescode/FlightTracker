@@ -44,7 +44,11 @@ export default function Countdown() {
     if (isArrived) {
         return (
             <div className={styles.container}>
-                <div className={styles.arrived}>Welcome Home, Akka! ❤️🏡</div>
+                <div className={styles.welcomeWrapper}>
+                    <div className={styles.welcomeTitle}>Welcome Home, Vardhu! ❤️🏡</div>
+                    <p className={styles.welcomeSubtitle}>We are so incredibly happy to have you back in India.</p>
+                    <div className={styles.celebration}>✨🇮🇳✈️🏠✨</div>
+                </div>
             </div>
         );
     }
