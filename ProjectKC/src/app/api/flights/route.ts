@@ -1,18 +1,8 @@
 import { NextResponse } from 'next/server';
 import { Flight } from '@/types/flight';
-import fs from 'fs';
-import path from 'path';
 
 const API_KEY = '271a8e1f1ec1216ec3c8df94548ef647';
 const BASE_URL = 'http://api.aviationstack.com/v1/flights';
-const LOG_FILE = path.join(process.cwd(), 'api_logs.txt');
-
-function logToFile(msg: string) {
-    try {
-        const timestamp = new Date().toISOString();
-        fs.appendFileSync(LOG_FILE, `[${timestamp}] ${msg}\n`);
-    } catch (e) { }
-}
 
 export async function GET(request: Request) {
     try {
@@ -20,7 +10,7 @@ export async function GET(request: Request) {
         const flightNumber = searchParams.get('flightNumber');
         const date = searchParams.get('date');
 
-        logToFile(`[API] Searching for: ${flightNumber}, Date: ${date}`);
+        console.log(`[API] Searching for: ${flightNumber}, Date: ${date}`);
 
         if (!flightNumber) {
             return NextResponse.json([]);
@@ -71,7 +61,7 @@ export async function GET(request: Request) {
             const data = await response.json();
 
             if (data.error) {
-                logToFile(`AviationStack Error: ${JSON.stringify(data.error)}`);
+                console.warn('AviationStack Error:', data.error);
             }
 
             if (data.data && Array.isArray(data.data) && data.data.length > 0) {
@@ -123,14 +113,14 @@ export async function GET(request: Request) {
                 }
             }
         } catch (error) {
-            logToFile(`Real API fetch failed: ${error}`);
+            console.error('Real API fetch failed:', error);
         }
 
         // 2. Fallback logic:
         // If real API returned data, use it.
         // If not, and it's one of our special journey flights, use the ticket data.
         if (realFlightData.length > 0) {
-            logToFile(`Returning ${realFlightData.length} flights from Real API`);
+            console.log(`[API] Returning ${realFlightData.length} flights from Real API`);
             return NextResponse.json(realFlightData);
         }
 
@@ -143,14 +133,14 @@ export async function GET(request: Request) {
                 flights = flights.filter(f => f.departure.time.startsWith(date));
             }
 
-            logToFile(`Returning ${flights.length} flights from Mock Ticket Data`);
+            console.log(`[API] Returning ${flights.length} flights from Mock Ticket Data`);
             return NextResponse.json(flights);
         }
 
-        logToFile(`No flights found for ${flightNumberClean}`);
+        console.log(`[API] No flights found for ${flightNumberClean}`);
         return NextResponse.json([]);
     } catch (e) {
-        logToFile(`Search API Route Error: ${e}`);
+        console.error('Search API Route Error:', e);
         return NextResponse.json([], { status: 500 });
     }
 }
