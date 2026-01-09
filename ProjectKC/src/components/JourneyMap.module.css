@@ -5,8 +5,8 @@
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 16px;
-    padding: 2rem;
-    margin-bottom: 2rem;
+    padding: 2rem 2rem 3rem 2rem;
+    margin-bottom: 3rem;
     color: white;
 }
 
