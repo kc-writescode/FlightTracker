@@ -46,7 +46,7 @@ export default function Countdown() {
             <div className={styles.container}>
                 <div className={styles.welcomeWrapper}>
                     <div className={styles.welcomeTitle}>Welcome Home, Vardhu! ❤️🏡</div>
-                    <p className={styles.welcomeSubtitle}>We are so incredibly happy to have you back in India.</p>
+                    <p className={styles.welcomeSubtitle}>The Star is Back with a Bang!<br />Waiting to meet you at the airport, see you soon Akka!</p>
                     <div className={styles.celebration}>✨🇮🇳✈️🏠✨</div>
                 </div>
             </div>
