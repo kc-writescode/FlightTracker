@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import styles from './Countdown.module.css';
+import confetti from 'canvas-confetti';
 
 const TARGET_DATE = "2026-01-12T05:20:00+05:30"; // Jan 12, 5:20 AM IST
 
@@ -15,18 +16,51 @@ export default function Countdown() {
     const [isArrived, setIsArrived] = useState(false);
     const [isMounted, setIsMounted] = useState(false);
 
+    const fireConfetti = useCallback(() => {
+        const duration = 5 * 1000;
+        const animationEnd = Date.now() + duration;
+        const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+
+        const randomInRange = (min: number, max: number) => Math.random() * (max - min) + min;
+
+        const interval: any = setInterval(function () {
+            const timeLeft = animationEnd - Date.now();
+
+            if (timeLeft <= 0) {
+                return clearInterval(interval);
+            }
+
+            const particleCount = 50 * (timeLeft / duration);
+            // since particles fall down, start a bit higher than random
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } });
+            confetti({ ...defaults, particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } });
+        }, 250);
+    }, []);
+
     useEffect(() => {
         setIsMounted(true);
         const target = new Date(TARGET_DATE).getTime();
 
-        const timer = setInterval(() => {
+        const checkArrival = () => {
             const now = new Date().getTime();
-            const difference = target - now;
-
-            if (difference <= 0) {
+            if (target - now <= 0) {
                 setIsArrived(true);
+                fireConfetti();
+                return true;
+            }
+            return false;
+        };
+
+        // Check immediately on mount (handles refresh after arrival)
+        if (checkArrival()) return;
+
+        // Otherwise set up a timer to check every second
+        const timer = setInterval(() => {
+            if (checkArrival()) {
                 clearInterval(timer);
             } else {
+                const now = new Date().getTime();
+                const difference = target - now;
                 setTimeLeft({
                     days: Math.floor(difference / (1000 * 60 * 60 * 24)),
                     hours: Math.floor((difference / (1000 * 60 * 60)) % 24),
@@ -37,7 +71,7 @@ export default function Countdown() {
         }, 1000);
 
         return () => clearInterval(timer);
-    }, []);
+    }, [fireConfetti]);
 
     if (!isMounted) return null;
 
