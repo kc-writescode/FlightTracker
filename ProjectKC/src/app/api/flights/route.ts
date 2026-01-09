@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server';
 import { Flight } from '@/types/flight';
 
-const API_KEY = '271a8e1f1ec1216ec3c8df94548ef647';
+const API_KEY = '53c6ceac256885e6bd2bb6e556abe5ef';
 const BASE_URL = 'http://api.aviationstack.com/v1/flights';
 
 export async function GET(request: Request) {
