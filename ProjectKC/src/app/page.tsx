@@ -95,6 +95,8 @@ export default function Home() {
 
       <JourneyMap currentLeg={currentLeg} />
 
+      <Countdown />
+
       <SearchInput onSearch={handleSearch} isLoading={isLoading} />
 
       <div className={styles.results}>
@@ -118,7 +120,7 @@ export default function Home() {
         )}
       </div>
 
-      <Countdown />
+
 
       <div className={styles.conceptImage}>
         <MagnifierImage
