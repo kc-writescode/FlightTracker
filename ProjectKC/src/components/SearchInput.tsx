@@ -49,8 +49,11 @@ export default function SearchInput({ onSearch, isLoading }: SearchInputProps) {
                 />
                 <div className={styles.divider} />
                 <input
-                    type="date"
+                    type={date ? "date" : "text"}
+                    onFocus={(e) => (e.currentTarget.type = "date")}
+                    onBlur={(e) => { if (!e.currentTarget.value) e.currentTarget.type = "text"; }}
                     className={styles.dateInput}
+                    placeholder="Select Date"
                     value={date}
                     onChange={(e) => setDate(e.target.value)}
                     disabled={isLoading}
