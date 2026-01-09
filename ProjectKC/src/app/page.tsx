@@ -100,9 +100,18 @@ export default function Home() {
           <FlightCard key={flight.flightNumber + flight.departure.time} flight={flight} />
         ))}
 
+        {hasSearched && (
+          <button
+            onClick={() => window.location.reload()}
+            className={styles.resetButton}
+          >
+            ← Back to Full Journey
+          </button>
+        )}
+
         {hasSearched && !isLoading && flights.length === 0 && (
           <div className={styles.emptyState}>
-            <p>No flights found for that number.</p>
+            <p>No flights found for search. Please check the flight number and departure date.</p>
           </div>
         )}
       </div>

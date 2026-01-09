@@ -13,7 +13,7 @@ export async function GET(request: Request) {
         return NextResponse.json([]);
     }
 
-    const flightNumberClean = flightNumber.toUpperCase().trim();
+    const flightNumberClean = flightNumber.toUpperCase().replace(/\s+/g, '').trim();
 
     // database/ticket fallback data
     const ticketData: Record<string, Flight[]> = {
