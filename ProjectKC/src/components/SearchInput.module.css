@@ -99,12 +99,11 @@
         flex-direction: column;
         align-items: stretch;
         border-radius: 16px;
-        padding-bottom: 3.5rem;
-        /* Space for search icon */
+        padding-bottom: 0.5rem;
     }
 
     .input {
-        padding: 1rem 1.5rem;
+        padding: 1.25rem 1.5rem;
         font-size: 1.1rem;
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
     }
@@ -113,6 +112,7 @@
         padding: 1rem 1.5rem;
         width: 100%;
         min-width: 0;
+        height: auto;
     }
 
     .divider {
@@ -120,9 +120,16 @@
     }
 
     .searchIcon {
-        right: 50%;
-        transform: translateX(50%);
-        bottom: 1rem;
+        position: relative;
+        right: auto;
+        bottom: auto;
         top: auto;
+        transform: none;
+        margin: 0.5rem 1.5rem 1rem;
+        padding: 1rem;
+        background: rgba(0, 242, 255, 0.1);
+        border-radius: 12px;
+        width: auto;
+        justify-content: center;
     }
 }
