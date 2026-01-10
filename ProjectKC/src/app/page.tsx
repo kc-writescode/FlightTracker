@@ -38,19 +38,19 @@ export default function Home() {
         // Leg 3: HYD - After BA277 arrives
 
         if (allFlights.length >= 3) {
-          const now = new Date();
-          const flight1Arr = new Date(allFlights[0].arrival.time).getTime();
-          const flight2Arr = new Date(allFlights[1].arrival.time).getTime();
-          const flight3Arr = new Date(allFlights[2].arrival.time).getTime();
+          const flight1 = allFlights[0];
+          const flight2 = allFlights[1];
+          const flight3 = allFlights[2];
 
-          if (now.getTime() > flight3Arr) {
-            setCurrentLeg(3);
-          } else if (now.getTime() > flight2Arr) {
-            setCurrentLeg(2);
-          } else if (now.getTime() > flight1Arr) {
-            setCurrentLeg(1);
+          // Set current leg based on actual arrival status
+          if (flight3.status === 'Arrived') {
+            setCurrentLeg(3); // Arrived in HYD
+          } else if (flight2.status === 'Arrived') {
+            setCurrentLeg(2); // Arrived in LHR
+          } else if (flight1.status === 'Arrived') {
+            setCurrentLeg(1); // Arrived in JFK
           } else {
-            setCurrentLeg(0);
+            setCurrentLeg(0); // Still in CVG or en-route to JFK
           }
         }
       } catch (e) {
